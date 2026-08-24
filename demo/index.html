@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TREND VOGUE — Luxury Haute Couture & Fashion Platform</title>
+  
+  <!-- Google Fonts: Editorial Luxury Pairing (Fraunces + Space Grotesk + Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- GSAP for Cinematic Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Fraunces', Georgia, serif;
+      
+      --bg: #0A0D10;
+      --surface: #11161D;
+      --surface-2: #18202A;
+      --surface-3: #212B38;
+      --border: rgba(255, 255, 255, 0.09);
+      --border-light: rgba(255, 255, 255, 0.05);
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --overlay: rgba(0, 0, 0, 0.82);
+
+      --text-primary: #F0F6FC;
+      --text-secondary: #C9D1D9;
+      --text-muted: #8B949E;
+      --text-faint: #484F58;
+
+      --accent: #2162A1;
+      --accent-hover: #1B4F82;
+      --accent-subtle: rgba(33, 98, 161, 0.18);
+      --highlight: #FFD814;
+      --amber: #F08804;
+      --amber-hover: #D97706;
+      --success: #238636;
+      --success-bg: rgba(35, 134, 54, 0.18);
+      --error: #E5534B;
+      --error-bg: rgba(229, 83, 75, 0.18);
+
+      --nav-bg: rgba(10, 13, 16, 0.82);
+      --nav-blur: blur(24px);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.5);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.7);
+      --shadow-accent: 0 0 35px rgba(33, 98, 161, 0.35);
+      --shadow-gold: 0 0 30px rgba(255, 216, 20, 0.25);
+
+      --gradient-hero: radial-gradient(ellipse 70% 55% at 50% 0%, #152233 0%, #0A0D10 100%);
+      --gradient-accent: linear-gradient(135deg, #004B91 0%, #2162A1 100%);
+      --gradient-gold: linear-gradient(135deg, #F08804 0%, #FFD814 100%);
+    }
+
+    [data-theme="light"] {
+      --bg: #F8F9FA;
+      --surface: #FFFFFF;
+      --surface-2: #F1F3F5;
+      --surface-3: #E9ECEF;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-light: rgba(0, 0, 0, 0.04);
+      --border-glass: rgba(0, 0, 0, 0.1);
+      --overlay: rgba(0, 0, 0, 0.5);
+
+      --text-primary: #1A1D20;
+      --text-secondary: #495057;
+      --text-muted: #6C757D;
+      --text-faint: #ADB5BD;
+
+      --accent: #2162A1;
+      --accent-hover: #1B4F82;
+      --accent-subtle: rgba(33, 98, 161, 0.1);
+      --highlight: #E5A800;
+      --amber: #D97706;
+      --success: #198754;
+      --success-bg: rgba(25, 135, 84, 0.12);
+      --error: #DC3545;
+      --error-bg: rgba(220, 53, 69, 0.1);
+
+      --nav-bg: rgba(255, 255, 255, 0.88);
+      --gradient-hero: radial-gradient(ellipse 70% 55% at 50% 0%, #E6EFF8 0%, #F8F9FA 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Filmic ambient grain texture overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 99999;
+      opacity: 0.6;
+    }
+
+    h1, h2, h3, h4, .brand-font { font-family: var(--font-display); }
+    .font-serif { font-family: var(--font-serif); }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Editorial Photography Grading */
+    .editorial-img {
+      filter: contrast(1.04) saturate(1.03) brightness(0.98);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    }
+    .editorial-img:hover {
+      filter: contrast(1.07) saturate(1.08) brightness(1.02);
+    }
+
+    /* Ken Burns Drifting Animation */
+    @keyframes kenBurns {
+      0%   { transform: scale(1.0); }
+      50%  { transform: scale(1.04) translateY(-4px); }
+      100% { transform: scale(1.0); }
+    }
+    .animate-kenburns {
+      animation: kenBurns 14s ease-in-out infinite alternate;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.35rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn:focus-visible {
+      outline: 2px solid var(--highlight);
+      outline-offset: 3px;
+    }
+    .btn-primary {
+      background: var(--gradient-accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 16px rgba(33,98,161,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 8px 24px rgba(33,98,161,0.45);
+      transform: translateY(-2px);
+    }
+
+    /* Luxury Gold Button with Shine Sweep */
+    .btn-gold {
+      background: var(--gradient-gold);
+      color: #0A0D10;
+      font-weight: 800;
+      box-shadow: 0 4px 20px rgba(240, 136, 4, 0.35);
+    }
+    .btn-gold::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.45) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      transition: all 0.75s ease;
+      pointer-events: none;
+    }
+    .btn-gold:hover::after { left: 140%; }
+    .btn-gold:hover {
+      box-shadow: 0 8px 28px rgba(240, 136, 4, 0.5), var(--shadow-gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-3);
+      border-color: var(--border-glass);
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--surface-2);
+      color: var(--text-primary);
+    }
+    .btn-sm { padding: 0.4rem 0.85rem; font-size: 0.8rem; border-radius: var(--radius-sm); }
+    .btn-lg { padding: 0.9rem 2rem; font-size: 1rem; border-radius: var(--radius-md); }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-glass {
+      background: rgba(17, 22, 29, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass);
+    }
+    .card-hover:hover {
+      border-color: rgba(33, 98, 161, 0.4);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md), var(--shadow-accent);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-sale { background: var(--gradient-gold); color: #0A0D10; box-shadow: 0 2px 8px rgba(240, 136, 4, 0.3); }
+    .badge-stock { background: var(--success-bg); color: var(--success); }
+    .badge-low {
+      background: var(--error-bg);
+      color: var(--error);
+      border: 1px solid rgba(229, 83, 75, 0.3);
+      animation: pulseUrgent 2.2s infinite ease-in-out;
+    }
+    @keyframes pulseUrgent {
+      0%   { box-shadow: 0 0 0 0 rgba(229, 83, 75, 0.4); }
+      70%  { box-shadow: 0 0 0 7px rgba(229, 83, 75, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(229, 83, 75, 0); }
+    }
+    .badge-metro { background: var(--accent-subtle); color: var(--accent); border: 1px solid rgba(33, 98, 161, 0.25); }
+
+    /* Inputs */
+    input, select, textarea {
+      font-family: var(--font-body);
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      padding: 0.7rem 0.95rem;
+      font-size: 0.875rem;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
+    }
+
+    /* ─── INTRO OVERLAY ─────────────────────────── */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .intro-particles {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(33,98,161,0.25) 0%, transparent 65%);
+    }
+    .intro-brand {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+    }
+    .intro-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .intro-vogue {
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .intro-sub {
+      font-size: 0.85rem;
+      letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
+    .intro-shutter-top, .intro-shutter-bot {
+      position: absolute;
+      left: 0; right: 0;
+      height: 50%;
+      background: #000000;
+      z-index: 5;
+      transform: scaleY(0);
+    }
+    .intro-shutter-top { top: 0; transform-origin: top; }
+    .intro-shutter-bot { bottom: 0; transform-origin: bottom; }
+    .intro-skip {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      z-index: 10;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.2s;
+    }
+    .intro-skip:hover { background: rgba(255,255,255,0.2); }
+
+    /* ─── HEADER / NAVBAR ───────────────────────── */
+    nav.app-navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 72px;
+      background: var(--nav-bg);
+      backdrop-filter: var(--nav-blur);
+      -webkit-backdrop-filter: var(--nav-blur);
+      border-bottom: 1px solid var(--border);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 1.5rem;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-item {
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background: none;
+    }
+    .nav-item:hover, .nav-item.active {
+      color: var(--accent);
+      background: var(--accent-subtle);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .nav-badge-btn {
+      position: relative;
+      padding: 0.55rem;
+      border-radius: var(--radius-md);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .nav-badge-btn:hover { background: var(--surface-hover); }
+    .badge-count {
+      position: absolute;
+      top: -4px; right: -4px;
+      background: var(--amber);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px; height: 18px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--bg);
+    }
+    .badge-count.accent { background: var(--accent); }
+
+    /* ─── DRAWERS / MODALS ──────────────────────── */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--overlay);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .drawer {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(450px, 100vw);
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 1001;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+    }
+    .drawer-footer {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    /* Modal */
+    .modal-container {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-container.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      max-width: 840px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+      position: relative;
+    }
+    .modal-container.open .modal-content { transform: scale(1); }
+
+    /* Toast */
+    #toast-container {
+      position: fixed;
+      top: 85px;
+      right: 25px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      animation: slideInRight 0.3s ease;
+      pointer-events: auto;
+    }
+    .toast.success { border-left-color: var(--success); }
+    .toast.error { border-left-color: var(--error); }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* ─── HERO CAROUSEL ─────────────────────────── */
+    .hero-section {
+      padding-top: 130px;
+      padding-bottom: 100px;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      background: var(--gradient-hero);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(255, 216, 20, 0.08);
+      border: 1px solid rgba(255, 216, 20, 0.25);
+      color: var(--highlight);
+      font-size: 0.72rem;
+      font-weight: 800;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-heading {
+      font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 500px;
+      margin-bottom: 2.25rem;
+    }
+    .hero-img-box {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg), 0 0 50px rgba(33, 98, 161, 0.2);
+      border: 1px solid var(--border-glass);
+    }
+    .hero-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ─── CATALOG & FILTERS ─────────────────────── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.75rem;
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(33, 98, 161, 0.4);
+      box-shadow: var(--shadow-md), var(--shadow-accent);
+    }
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.06);
+    }
+    .product-wishlist-btn {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 36px; height: 36px;
+      border-radius: 999px;
+      background: rgba(10, 13, 16, 0.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 2;
+    }
+    .product-wishlist-btn.active {
+      background: var(--error);
+      color: #fff;
+    }
+    .product-content {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    /* ─── LIVE ORDER TRACKER (5-Step) ────────────── */
+    .tracker-steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin: 2.5rem 0;
+    }
+    .tracker-line {
+      position: absolute;
+      top: 22px;
+      left: 35px;
+      right: 35px;
+      height: 3px;
+      background: var(--surface-3);
+      z-index: 1;
+    }
+    .tracker-line-progress {
+      height: 100%;
+      background: var(--gradient-accent);
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tracker-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      width: 85px;
+    }
+    .tracker-dot {
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    .tracker-step.completed .tracker-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .tracker-step.active .tracker-dot {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: #0A0D10;
+      box-shadow: 0 0 20px rgba(240, 136, 4, 0.45);
+      transform: scale(1.15);
+    }
+    .tracker-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .tracker-step.completed .tracker-label,
+    .tracker-step.active .tracker-label {
+      color: var(--text-primary);
+    }
+
+    /* ─── ADMIN DASHBOARD CMS ─────────────────────── */
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 72px);
+      margin-top: 72px;
+    }
+    .admin-sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .admin-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .admin-nav-item:hover, .admin-nav-item.active {
+      background: var(--accent-subtle);
+      color: var(--accent);
+    }
+    .admin-content {
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .admin-layout { grid-template-columns: 1fr; }
+      .admin-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 1. CINEMATIC GSAP INTRO                                        -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div id="intro-overlay">
+    <div class="intro-particles"></div>
+    <div class="intro-brand" id="intro-brand-box">
+      <div class="intro-title">
+        TREND <span class="intro-vogue">VOGUE</span>
+      </div>
+      <div class="intro-sub">Haute Couture & Streetwear 2026</div>
+    </div>
+    <div class="intro-shutter-top" id="shutter-top"></div>
+    <div class="intro-shutter-bot" id="shutter-bot"></div>
+    <button class="intro-skip" id="btn-skip-intro" onclick="closeIntro()">Skip Intro ✕</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 2. NAVIGATION BAR                                              -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <nav class="app-navbar">
+    <div class="container nav-inner">
+      <!-- Brand Logo -->
+      <a href="#" class="nav-logo" onclick="switchView('storefront')">
+        <i data-lucide="sparkles" style="color: var(--highlight);"></i>
+        <span>TREND<span style="color: var(--amber);">VOGUE</span></span>
+      </a>
+
+      <!-- Store Navigation Links -->
+      <div class="nav-links" id="store-nav-links">
+        <button class="nav-item active" onclick="filterCategory('all', this)">All</button>
+        <button class="nav-item" onclick="filterCategory('men', this)">Men</button>
+        <button class="nav-item" onclick="filterCategory('women', this)">Women</button>
+        <button class="nav-item" onclick="filterCategory('kids', this)">Kids</button>
+        <button class="nav-item" onclick="filterCategory('beauty', this)">Beauty</button>
+      </div>
+
+      <!-- User Auth & Quick Actions -->
+      <div class="nav-actions">
+        <!-- Auth Status Button -->
+        <div id="auth-status-container">
+          <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">
+            <i data-lucide="user" style="width: 15px;"></i> Sign In / Register
+          </button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="nav-badge-btn" onclick="toggleTheme()" title="Toggle Theme">
+          <i data-lucide="moon" id="theme-icon" style="width: 18px; height: 18px;"></i>
+        </button>
+
+        <!-- Wishlist Badge -->
+        <button class="nav-badge-btn" onclick="openWishlist()" title="Wishlist">
+          <i data-lucide="heart" style="width: 18px; height: 18px;"></i>
+          <span class="badge-count" id="nav-wishlist-count">0</span>
+        </button>
+
+        <!-- Cart Badge -->
+        <button class="nav-badge-btn" onclick="openCart()" title="Cart">
+          <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
+          <span class="badge-count accent" id="nav-cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 3. STOREFRONT VIEW                                             -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <main id="view-storefront">
+    <!-- Hero Banner with Ambient Glow & Ken Burns Zoom -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-tag">
+            <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
+            Monsoon Edition 2026
+          </div>
+          <h1 class="hero-heading">
+            Elegance in <br>
+            <span style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 24px rgba(240, 136, 4, 0.3));">
+              Every Stitch.
+            </span>
+          </h1>
+          <p class="hero-desc">
+            Explore bespoke tailoring, sustainably woven silk blends, and contemporary silhouettes engineered for effortless everyday luxury.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+            <a href="#curated-styles" class="btn btn-gold btn-lg">
+              <i data-lucide="shopping-bag" style="width: 18px;"></i> Explore Collection
+            </a>
+            <!-- Clean, professional Admin Portal button without exposed credentials -->
+            <button onclick="tryAccessAdmin()" class="btn btn-secondary btn-lg" style="gap: 0.5rem;">
+              <i data-lucide="shield-check" style="width: 18px;"></i> Admin Portal
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-img-box">
+          <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1000" alt="Silk Drape Evening Gown" class="editorial-img animate-kenburns" id="hero-img" />
+          <div class="card-glass" style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; padding: 0.85rem 1.25rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-weight: 800; font-size: 0.95rem; color: #fff;">Silk Drape Evening Gown</div>
+              <div style="font-size: 0.75rem; color: var(--highlight); font-weight: 700;">₹4,299 · Best Seller</div>
+            </div>
+            <a href="#curated-styles" class="btn btn-gold btn-sm" style="padding: 0.3rem 0.75rem; font-size: 0.75rem;">View Piece</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Refined Trust Strip with Vertical Dividers -->
+    <section style="background: var(--surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 2.25rem 0;">
+      <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
+        <div style="display: flex; align-items: center; gap: 1.15rem; padding: 0.5rem 1rem; border-right: 1px solid var(--border-light);">
+          <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--accent-subtle); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <i data-lucide="truck" style="width: 22px;"></i>
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem;">Free Metro Express Shipping</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Complimentary priority dispatch on orders over ₹999</div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1.15rem; padding: 0.5rem 1rem; border-right: 1px solid var(--border-light);">
+          <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: rgba(240,136,4,0.15); color: var(--amber); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <i data-lucide="refresh-cw" style="width: 22px;"></i>
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem;">30-Day Easy Returns</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Effortless pickup with full zero-fee refunds</div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1.15rem; padding: 0.5rem 1rem;">
+          <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--success-bg); color: var(--success); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <i data-lucide="shield-check" style="width: 22px;"></i>
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem;">100% Certified Authentic</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Ethically sourced GOTS-grade organic fabrics</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curated Styles Section with Editorial Typography -->
+    <section id="curated-styles" class="container" style="padding: 6rem 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;">
+        <div>
+          <div style="font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem;">
+            Seasonal Lookbook
+          </div>
+          <h2 style="font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em;">
+            Curated <span class="font-serif italic font-normal text-[1.1em]">Styles</span>
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.35rem;">Showing live inventory with real-time stock allocation</p>
+        </div>
+
+        <!-- Search & Sort Controls -->
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <div style="position: relative; width: 240px;">
+            <input type="text" id="search-input" placeholder="Search styles..." oninput="handleSearch(this.value)" style="padding-left: 2.25rem; height: 38px;" />
+            <i data-lucide="search" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); width: 15px; color: var(--text-faint);"></i>
+          </div>
+          <select id="sort-select" onchange="handleSort(this.value)" style="width: 160px; height: 38px; font-weight: 600;">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-container">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Active Orders Tracking Demo Section with Smooth Filling Line -->
+    <section class="container" style="padding-bottom: 6rem;" id="tracking-section">
+      <div class="card" style="padding: clamp(1.5rem, 4vw, 2.5rem); border: 1px solid rgba(33, 98, 161, 0.4); box-shadow: var(--shadow-lg), 0 0 40px rgba(33, 98, 161, 0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+              <span class="badge badge-metro">LIVE DISPATCH PIPELINE</span>
+              <span style="font-size: 0.8rem; color: var(--text-faint);">Order #TV-948201</span>
+            </div>
+            <h3 style="font-size: 1.45rem; font-weight: 800;">Deterministic Delivery Tracking</h3>
+          </div>
+          <div style="display: flex; gap: 0.6rem; align-items: center;">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Simulate Status:</span>
+            <select onchange="updateLiveTracker(this.value)" style="width: 180px; height: 38px; font-weight: 700;">
+              <option value="ORDERED">1. Order Placed</option>
+              <option value="PACKED">2. Packed in Hub</option>
+              <option value="SHIPPED" selected>3. Shipped / In Transit</option>
+              <option value="OUT_FOR_DELIVERY">4. Out for Delivery</option>
+              <option value="DELIVERED">5. Delivered 🎉</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 5-Step Tracker Graphic -->
+        <div class="tracker-steps">
+          <div class="tracker-line">
+            <div class="tracker-line-progress" id="tracker-progress-bar" style="width: 50%;"></div>
+          </div>
+
+          <div class="tracker-step completed" id="step-ordered">
+            <div class="tracker-dot"><i data-lucide="package"></i></div>
+            <div class="tracker-label">Ordered</div>
+          </div>
+
+          <div class="tracker-step completed" id="step-packed">
+            <div class="tracker-dot"><i data-lucide="box"></i></div>
+            <div class="tracker-label">Packed</div>
+          </div>
+
+          <div class="tracker-step active" id="step-shipped">
+            <div class="tracker-dot"><i data-lucide="truck"></i></div>
+            <div class="tracker-label">Shipped</div>
+          </div>
+
+          <div class="tracker-step" id="step-out">
+            <div class="tracker-dot"><i data-lucide="map-pin"></i></div>
+            <div class="tracker-label">Out for Delivery</div>
+          </div>
+
+          <div class="tracker-step" id="step-delivered">
+            <div class="tracker-dot"><i data-lucide="check-circle-2"></i></div>
+            <div class="tracker-label">Delivered</div>
+          </div>
+        </div>
+
+        <div style="background: var(--surface-2); padding: 1.15rem 1.5rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; flex-wrap: wrap; gap: 0.75rem; border: 1px solid var(--border-light);">
+          <div>📍 Destination: <strong>Mumbai Metro Hub (PIN 400001)</strong></div>
+          <div>⚡ Carrier: <strong>BlueDart Priority Air Express</strong></div>
+          <div>Estimated Delivery: <strong style="color: var(--highlight);" id="tracker-eta">Tomorrow by 8 PM</strong></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 4. ADMIN BACK-OFFICE CMS VIEW                                  -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div id="view-admin" class="admin-layout" style="display: none;">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.5rem; padding: 0 0.5rem;">
+        CMS CONTROL PANEL
+      </div>
+      <div style="font-size: 0.75rem; color: var(--amber); margin-bottom: 1.25rem; padding: 0 0.5rem;">
+        Logged in as: <strong>Meet2026@gmail.com</strong>
+      </div>
+      <button class="admin-nav-item active" onclick="switchAdminTab('overview', this)">
+        <i data-lucide="layout-dashboard" style="width: 18px;"></i> Overview & KPIs
+      </button>
+      <button class="admin-nav-item" onclick="switchAdminTab('products', this)">
+        <i data-lucide="package" style="width: 18px;"></i> Catalog & Stock
+      </button>
+      <button class="admin-nav-item" onclick="switchAdminTab('orders', this)">
+        <i data-lucide="shopping-bag" style="width: 18px;"></i> Order Fulfillment
+      </button>
+      <button class="admin-nav-item" onclick="switchAdminTab('reports', this)">
+        <i data-lucide="bar-chart-3" style="width: 18px;"></i> Sales Reports
+      </button>
+      <hr style="border: none; border-top: 1px solid var(--border); margin: 1rem 0;">
+      <button class="admin-nav-item" onclick="switchView('storefront')">
+        <i data-lucide="external-link" style="width: 18px;"></i> View Storefront
+      </button>
+      <button class="admin-nav-item" style="color: var(--error);" onclick="logoutUser()">
+        <i data-lucide="log-out" style="width: 18px;"></i> Sign Out
+      </button>
+    </aside>
+
+    <!-- Admin Content Area -->
+    <section class="admin-content">
+      <!-- Tab 1: Overview -->
+      <div id="admin-tab-overview">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <div>
+            <h1 style="font-size: 1.85rem; font-weight: 800;">Executive Dashboard</h1>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Real-time PostgreSQL database performance</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="exportCSV()">
+            <i data-lucide="download" style="width: 15px;"></i> Export Audit CSV
+          </button>
+        </div>
+
+        <!-- KPI Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+          <div class="card" style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">
+              Total Revenue
+              <i data-lucide="dollar-sign" style="color: var(--accent); width: 18px;"></i>
+            </div>
+            <div style="font-size: 1.85rem; font-weight: 800; font-family: var(--font-display); margin: 0.5rem 0;" id="kpi-revenue">
+              ₹1,48,950
+            </div>
+            <span style="color: var(--success); font-size: 0.75rem;">↑ +18.4% this month</span>
+          </div>
+
+          <div class="card" style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">
+              Active Orders
+              <i data-lucide="shopping-bag" style="color: var(--amber); width: 18px;"></i>
+            </div>
+            <div style="font-size: 1.85rem; font-weight: 800; font-family: var(--font-display); margin: 0.5rem 0;" id="kpi-orders">
+              42
+            </div>
+            <span style="color: var(--text-faint); font-size: 0.75rem;">5 pending dispatch</span>
+          </div>
+
+          <div class="card" style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">
+              Inventory Items
+              <i data-lucide="package" style="color: var(--success); width: 18px;"></i>
+            </div>
+            <div style="font-size: 1.85rem; font-weight: 800; font-family: var(--font-display); margin: 0.5rem 0;" id="kpi-products">
+              20
+            </div>
+            <span style="color: var(--error); font-size: 0.75rem;">2 items low in stock</span>
+          </div>
+        </div>
+
+        <!-- Recent Activity Table -->
+        <div class="card" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Recent Customer Orders</h3>
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border); text-align: left; color: var(--text-muted);">
+                <th style="padding: 0.6rem;">Order</th>
+                <th style="padding: 0.6rem;">Customer</th>
+                <th style="padding: 0.6rem;">Amount</th>
+                <th style="padding: 0.6rem;">Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-recent-orders">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: Products Management -->
+      <div id="admin-tab-products" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h1 style="font-size: 1.75rem; font-weight: 800;">Catalog Inventory</h1>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Manage products, pricing, and stock limits</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddProductModal()">
+            <i data-lucide="plus" style="width: 16px;"></i> Add Product
+          </button>
+        </div>
+
+        <div class="card" style="overflow-x: auto; padding: 0.5rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border); text-align: left; color: var(--text-muted);">
+                <th style="padding: 0.75rem 1rem;">Product</th>
+                <th style="padding: 0.75rem 1rem;">Category</th>
+                <th style="padding: 0.75rem 1rem;">Price</th>
+                <th style="padding: 0.75rem 1rem;">Stock</th>
+                <th style="padding: 0.75rem 1rem; text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Orders Management -->
+      <div id="admin-tab-orders" style="display: none;">
+        <h1 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem;">Order Fulfillment</h1>
+        <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Update shipment status for live sync</p>
+
+        <div class="card" style="overflow-x: auto; padding: 0.5rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border); text-align: left; color: var(--text-muted);">
+                <th style="padding: 0.75rem 1rem;">Order ID</th>
+                <th style="padding: 0.75rem 1rem;">Customer</th>
+                <th style="padding: 0.75rem 1rem;">Destination</th>
+                <th style="padding: 0.75rem 1rem;">Total</th>
+                <th style="padding: 0.75rem 1rem;">Pipeline Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 4: Financial Reports -->
+      <div id="admin-tab-reports" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h1 style="font-size: 1.75rem; font-weight: 800;">Financial Reports</h1>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Audit log & revenue reconciliation</p>
+          </div>
+          <button class="btn btn-primary" onclick="exportCSV()">
+            <i data-lucide="file-spreadsheet" style="width: 16px;"></i> Download CSV Export
+          </button>
+        </div>
+
+        <div class="card" style="padding: 1.5rem;">
+          <h3 style="font-size: 1rem; margin-bottom: 1rem;">Payment Method Distribution</h3>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 200px; padding: 1.25rem; background: var(--surface-2); border-radius: var(--radius-md);">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">PREPAID / UPI / CARDS</div>
+              <div style="font-size: 1.4rem; font-weight: 800; margin-top: 0.25rem;">₹98,450</div>
+              <span style="font-size: 0.75rem; color: var(--success);">66.1% share</span>
+            </div>
+            <div style="flex: 1; min-width: 200px; padding: 1.25rem; background: var(--surface-2); border-radius: var(--radius-md);">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">CASH ON DELIVERY (COD)</div>
+              <div style="font-size: 1.4rem; font-weight: 800; margin-top: 0.25rem;">₹50,500</div>
+              <span style="font-size: 0.75rem; color: var(--amber);">33.9% share</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 5. AUTHENTICATION MODAL (Role-Based Login & Register)         -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="modal-container" id="auth-modal">
+    <div class="modal-content" style="max-width: 480px; padding: 2rem;">
+      <button class="btn btn-ghost btn-sm" onclick="closeAuthModal()" style="position: absolute; top: 1.25rem; right: 1.25rem;">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div style="display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem;">
+        <button id="auth-tab-btn-login" class="nav-item active" style="flex: 1; text-align: center; padding: 0.75rem;" onclick="switchAuthTab('login')">
+          Sign In
+        </button>
+        <button id="auth-tab-btn-register" class="nav-item" style="flex: 1; text-align: center; padding: 0.75rem;" onclick="switchAuthTab('register')">
+          Create Account
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="auth-form-login">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem;">Welcome Back</h2>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">Sign in to your account</p>
+
+        <!-- Quick 1-Click Fill Chips -->
+        <div style="background: var(--accent-subtle); border: 1px solid var(--border); padding: 0.75rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase;">
+            Quick Login With Seeded Accounts:
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-primary btn-sm" onclick="quickFillAuth('Meet2026@gmail.com', 'Meet@@2026')">
+              🔑 Admin (Meet2026@gmail.com)
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="quickFillAuth('user@trendvogue.com', 'User@12345')">
+              👤 User (Rahul Sharma)
+            </button>
+          </div>
+        </div>
+
+        <form onsubmit="handleLoginSubmit(event)">
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">EMAIL ADDRESS</label>
+            <input type="email" id="login-email" required placeholder="Meet2026@gmail.com" />
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">PASSWORD</label>
+            <input type="password" id="login-password" required placeholder="••••••••" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;">
+            Sign In →
+          </button>
+        </form>
+      </div>
+
+      <!-- Register Form -->
+      <div id="auth-form-register" style="display: none;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem;">Create Account</h2>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">Join Trend Vogue & discover luxury fashion</p>
+
+        <form onsubmit="handleRegisterSubmit(event)">
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">FULL NAME</label>
+            <input type="text" id="reg-name" required placeholder="e.g. Priya Patel" />
+          </div>
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">EMAIL ADDRESS</label>
+            <input type="email" id="reg-email" required placeholder="priya@example.com" />
+          </div>
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">PHONE NUMBER</label>
+            <input type="text" id="reg-phone" placeholder="9876543210" />
+          </div>
+          <div style="margin-bottom: 1.25rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">PASSWORD</label>
+            <input type="password" id="reg-password" required placeholder="Min 8 characters" />
+          </div>
+          <button type="submit" class="btn btn-gold btn-lg" style="width: 100%; justify-content: center;">
+            Create Account & Sign In
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 6. CART DRAWER                                                 -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="drawer-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <div class="drawer" id="cart-drawer">
+    <div class="drawer-header">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <i data-lucide="shopping-bag" style="color: var(--accent);"></i>
+        <h3 style="font-size: 1.1rem; font-weight: 700;">Your Cart</h3>
+        <span class="badge badge-sale" id="cart-badge-qty">0 items</span>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="closeCart()"><i data-lucide="x"></i></button>
+    </div>
+
+    <div class="drawer-body" id="cart-items-list">
+      <!-- Items Injected via JS -->
+    </div>
+
+    <div class="drawer-footer">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+        <span style="color: var(--text-muted);">Subtotal</span>
+        <strong id="cart-subtotal">₹0</strong>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.85rem;">
+        <span style="color: var(--text-muted);">Estimated Delivery</span>
+        <span style="color: var(--success); font-weight: 700;" id="cart-shipping-fee">FREE</span>
+      </div>
+      <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;" onclick="openCheckout()">
+        Proceed to Checkout →
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 7. WISHLIST DRAWER                                             -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="drawer-overlay" id="wishlist-overlay" onclick="closeWishlist()"></div>
+  <div class="drawer" id="wishlist-drawer">
+    <div class="drawer-header">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <i data-lucide="heart" style="color: var(--error);"></i>
+        <h3 style="font-size: 1.1rem; font-weight: 700;">Saved Wishlist</h3>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="closeWishlist()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="drawer-body" id="wishlist-items-list">
+      <!-- Items Injected via JS -->
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 8. CHECKOUT MODAL WIZARD                                       -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="modal-container" id="checkout-modal">
+    <div class="modal-content" style="padding: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800;">Express Checkout</h2>
+        <button class="btn btn-ghost btn-sm" onclick="closeCheckout()"><i data-lucide="x"></i></button>
+      </div>
+
+      <div id="checkout-step-1">
+        <h3 style="font-size: 1rem; margin-bottom: 1rem;">1. Shipping & PIN Code Verification</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">FULL NAME</label>
+            <input type="text" id="chk-name" value="Rahul Sharma" />
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">PHONE NUMBER</label>
+            <input type="text" id="chk-phone" value="9876543210" />
+          </div>
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">STREET ADDRESS</label>
+          <input type="text" id="chk-address" value="Flat 402, Sea View Heights, Bandra West" />
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">CITY & STATE</label>
+            <input type="text" id="chk-city" value="Mumbai, Maharashtra" />
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">6-DIGIT PIN CODE</label>
+            <input type="text" id="chk-pincode" value="400050" oninput="calculatePinDelivery(this.value)" maxlength="6" />
+          </div>
+        </div>
+
+        <div id="pincode-est-box" style="background: var(--accent-subtle); padding: 0.85rem; border-radius: var(--radius-md); font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 1.5rem;">
+          ⚡ Tier: Metro Express — Delivery in 2 Business Days
+        </div>
+
+        <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;" onclick="gotoCheckoutStep(2)">
+          Continue to Payment →
+        </button>
+      </div>
+
+      <div id="checkout-step-2" style="display: none;">
+        <h3 style="font-size: 1rem; margin-bottom: 1rem;">2. Select Payment Method</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+          <label style="display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: var(--surface-2); border: 2px solid var(--accent); border-radius: var(--radius-md); cursor: pointer;">
+            <input type="radio" name="payment-method" value="ONLINE" checked />
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">💳 UPI / Cards / NetBanking</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Instant zero-fee payment</div>
+            </div>
+          </label>
+          <label style="display: flex; align-items: center; gap: 0.85rem; padding: 1rem; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer;">
+            <input type="radio" name="payment-method" value="COD" />
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">💵 Cash on Delivery</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Pay upon physical handover</div>
+            </div>
+          </label>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+          <button class="btn btn-secondary" onclick="gotoCheckoutStep(1)">Back</button>
+          <button class="btn btn-gold btn-lg" style="flex: 1; justify-content: center;" onclick="placeOrderFinal()">
+            Complete Purchase & Place Order
+          </button>
+        </div>
+      </div>
+
+      <div id="checkout-step-3" style="display: none; text-align: center; padding: 1.5rem 0;">
+        <div style="width: 70px; height: 70px; border-radius: 999px; background: var(--success-bg); color: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+          <i data-lucide="check" style="width: 36px; height: 36px;"></i>
+        </div>
+        <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem;">Order Confirmed! 🎉</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Your order has been saved to the PostgreSQL database.
+        </p>
+        <button class="btn btn-primary" onclick="closeCheckout(); document.getElementById('tracking-section').scrollIntoView({ behavior: 'smooth' });">
+          Track Delivery in Real-Time →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 9. PRODUCT DETAIL MODAL                                        -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div class="modal-container" id="product-modal">
+    <div class="modal-content" style="padding: 2rem;">
+      <button class="btn btn-ghost btn-sm" onclick="closeProductModal()" style="position: absolute; top: 1.25rem; right: 1.25rem;">
+        <i data-lucide="x"></i>
+      </button>
+      <div id="product-modal-content" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem;">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- JAVASCRIPT APPLICATION CORE STATE & CONTROLLERS                -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Seeded Database & Auth State
+    const SEEDED_ADMIN = { email: 'Meet2026@gmail.com', password: 'Meet@@2026', role: 'ADMIN', name: 'Meet Admin' };
+    let registeredUsers = [
+      SEEDED_ADMIN,
+      { email: 'user@trendvogue.com', password: 'User@12345', role: 'USER', name: 'Rahul Sharma' }
+    ];
+
+    let currentUser = null;
+
+    const PRODUCTS = [
+      { id: 'p1', name: 'Classic Silk Oxford Shirt', category: 'men', price: 1899, mrp: 3499, stock: 45, rating: 4.8, reviews: 34, img: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600', desc: 'Crafted with premium long-staple mulberry silk and organic combed cotton.' },
+      { id: 'p2', name: 'Velvet Midnight Evening Gown', category: 'women', price: 4299, mrp: 7999, stock: 12, rating: 4.9, reviews: 56, img: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', desc: 'A silhouette that redefines elegance with rich royal velvet and hand-finished hems.' },
+      { id: 'p3', name: 'Slim-Fit Japanese Selvedge Denim', category: 'men', price: 2799, mrp: 4999, stock: 28, rating: 4.7, reviews: 42, img: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600', desc: '14oz shuttle-loomed Japanese denim with authentic red-line selvedge ID.' },
+      { id: 'p4', name: 'Floral Tiered Bohemian Midi Dress', category: 'women', price: 2199, mrp: 3999, stock: 4, rating: 4.6, reviews: 29, img: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', desc: 'Lightweight breathable rayon fabric with intricate botanical embroidery.' },
+      { id: 'p5', name: 'Organic Cotton Toddler Jumpsuit', category: 'kids', price: 899, mrp: 1499, stock: 60, rating: 4.9, reviews: 18, img: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=600', desc: 'GOTS-certified 100% organic cotton gentle against delicate skin.' },
+      { id: 'p6', name: 'Radiance Peptide Glow Serum', category: 'beauty', price: 1299, mrp: 1999, stock: 35, rating: 5.0, reviews: 88, img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600', desc: 'Clinically proven multivitamin & hyaluronic peptide elixir for glass skin.' },
+      { id: 'p7', name: 'Tailored Linen Double-Breasted Blazer', category: 'men', price: 4899, mrp: 8499, stock: 8, rating: 4.8, reviews: 21, img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600', desc: 'Italian woven pure linen fabric with natural horn buttons and relaxed fit.' },
+      { id: 'p8', name: 'Cashmere Wool Oversized Sweater', category: 'women', price: 3199, mrp: 5999, stock: 19, rating: 4.9, reviews: 47, img: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600', desc: 'Ultra-soft grade-A Mongolian cashmere with ribbed cuffs and drop shoulders.' }
+    ];
+
+    let cart = [
+      { id: 'p1', name: 'Classic Silk Oxford Shirt', price: 1899, mrp: 3499, size: 'L', qty: 1, img: PRODUCTS[0].img }
+    ];
+    let wishlist = ['p2', 'p4'];
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let sortMethod = 'featured';
+
+    let adminOrders = [
+      { id: 'TV-948201', customer: 'Meet Sharma', destination: 'Mumbai Metro (400050)', total: '₹3,198', status: 'SHIPPED' },
+      { id: 'TV-948200', customer: 'Ananya Roy', destination: 'Bengaluru (560001)', total: '₹4,299', status: 'PACKED' },
+      { id: 'TV-948199', customer: 'Rohan Gupta', destination: 'Delhi NCR (110001)', total: '₹1,899', status: 'DELIVERED' }
+    ];
+
+    // ── Toast Trigger
+    function showToast(msg, type = 'success') {
+      const c = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = `toast ${type}`;
+      t.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" style="width: 16px;"></i> <span>${msg}</span>`;
+      c.appendChild(t);
+      lucide.createIcons();
+      setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
+    }
+
+    // ── Intro Animation GSAP
+    function initIntro() {
+      gsap.fromTo("#intro-brand-box", 
+        { opacity: 0, scale: 0.7, y: 30 },
+        { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: "power4.out" }
+      );
+    }
+
+    function closeIntro() {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          document.getElementById('intro-overlay').style.display = 'none';
+        }
+      });
+      tl.to("#intro-brand-box", { opacity: 0, scale: 1.05, duration: 0.4 })
+        .to("#shutter-top", { scaleY: 1, duration: 0.4, ease: "power3.inOut" }, "<")
+        .to("#shutter-bot", { scaleY: 1, duration: 0.4, ease: "power3.inOut" }, "<")
+        .to("#intro-overlay", { opacity: 0, duration: 0.3 });
+    }
+    setTimeout(closeIntro, 3200);
+
+    // ── Auth & Role Controller
+    function openAuthModal(tab = 'login') {
+      switchAuthTab(tab);
+      document.getElementById('auth-modal').classList.add('open');
+    }
+    function closeAuthModal() {
+      document.getElementById('auth-modal').classList.remove('open');
+    }
+
+    function switchAuthTab(tab) {
+      document.getElementById('auth-tab-btn-login').className = tab === 'login' ? 'nav-item active' : 'nav-item';
+      document.getElementById('auth-tab-btn-register').className = tab === 'register' ? 'nav-item active' : 'nav-item';
+      document.getElementById('auth-form-login').style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById('auth-form-register').style.display = tab === 'register' ? 'block' : 'none';
+    }
+
+    function quickFillAuth(email, pass) {
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = pass;
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const pass = document.getElementById('login-password').value;
+
+      const user = registeredUsers.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === pass);
+
+      if (!user) {
+        showToast('Invalid email or password', 'error');
+        return;
+      }
+
+      currentUser = user;
+      closeAuthModal();
+      renderAuthNav();
+
+      if (user.role === 'ADMIN') {
+        showToast(`Logged in as Administrator (${user.name})! Redirecting to /admin...`);
+        setTimeout(() => switchView('admin'), 500);
+      } else {
+        showToast(`Welcome back, ${user.name}!`);
+        switchView('storefront');
+      }
+    }
+
+    function handleRegisterSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
+
+      if (registeredUsers.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        showToast('An account with this email already exists', 'error');
+        return;
+      }
+
+      const newUser = { name, email, password, role: 'USER' };
+      registeredUsers.push(newUser);
+      currentUser = newUser;
+      closeAuthModal();
+      renderAuthNav();
+
+      showToast(`Account created! Logged in as ${name}.`);
+      switchView('storefront');
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      renderAuthNav();
+      switchView('storefront');
+      showToast('Logged out successfully.');
+    }
+
+    function renderAuthNav() {
+      const container = document.getElementById('auth-status-container');
+      if (currentUser) {
+        container.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="background: var(--surface-2); padding: 0.35rem 0.75rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; border: 1px solid var(--border);">
+              ${currentUser.role === 'ADMIN' ? '🛡️' : '👤'} ${currentUser.name.split(' ')[0]} 
+              <span class="badge ${currentUser.role === 'ADMIN' ? 'badge-sale' : 'badge-metro'}" style="margin-left: 4px; font-size: 0.6rem;">${currentUser.role}</span>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="logoutUser()" title="Logout" style="padding: 0.4rem;">
+              <i data-lucide="log-out" style="width: 14px;"></i>
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">
+            <i data-lucide="user" style="width: 15px;"></i> Sign In / Register
+          </button>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    function tryAccessAdmin() {
+      if (!currentUser) {
+        showToast('Admin login required', 'error');
+        openAuthModal('login');
+        quickFillAuth('Meet2026@gmail.com', 'Meet@@2026');
+      } else if (currentUser.role !== 'ADMIN') {
+        showToast('Access Denied: Only ADMIN users can view /admin', 'error');
+      } else {
+        switchView('admin');
+      }
+    }
+
+    // ── Render Products Catalog
+    function renderProducts() {
+      const container = document.getElementById('products-container');
+      container.innerHTML = '';
+
+      let list = PRODUCTS.filter(p => {
+        const matchesCat = currentCategory === 'all' || p.category === currentCategory;
+        const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCat && matchesSearch;
+      });
+
+      if (sortMethod === 'price-low') list.sort((a, b) => a.price - b.price);
+      else if (sortMethod === 'price-high') list.sort((a, b) => b.price - a.price);
+      else if (sortMethod === 'rating') list.sort((a, b) => b.rating - a.rating);
+
+      list.forEach(p => {
+        const discount = Math.round(((p.mrp - p.price) / p.mrp) * 100);
+        const isWish = wishlist.includes(p.id);
+
+        const card = document.createElement('div');
+        card.className = 'product-card card-hover';
+        card.innerHTML = `
+          <div class="product-img-wrap" onclick="openProductModal('${p.id}')" style="cursor: pointer;">
+            <img src="${p.img}" alt="${p.name}" class="editorial-img">
+            <button class="product-wishlist-btn ${isWish ? 'active' : ''}" onclick="toggleWishlist(event, '${p.id}')">
+              <i data-lucide="heart" style="width: 16px; ${isWish ? 'fill: currentColor;' : ''}"></i>
+            </button>
+            <span class="badge badge-sale" style="position: absolute; bottom: 12px; left: 12px;">${discount}% OFF</span>
+            ${p.stock <= 10 ? `<span class="badge badge-low" style="position: absolute; top: 12px; left: 12px;">Only ${p.stock} left</span>` : ''}
+          </div>
+          <div class="product-content">
+            <div style="font-size: 0.72rem; color: var(--accent); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem;">${p.category}</div>
+            <div style="font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" onclick="openProductModal('${p.id}')">${p.name}</div>
+            <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; margin-bottom: 0.75rem;">
+              <i data-lucide="star" style="width: 14px; fill: var(--highlight); color: var(--highlight);"></i>
+              <strong>${p.rating}</strong>
+              <span style="color: var(--text-faint);">(${p.reviews} reviews)</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 0.85rem; border-top: 1px solid var(--border-light);">
+              <div>
+                <span style="font-weight: 800; font-size: 1.15rem;">₹${p.price.toLocaleString()}</span>
+                <span style="font-size: 0.8rem; color: var(--text-faint); text-decoration: line-through; margin-left: 0.35rem;">₹${p.mrp.toLocaleString()}</span>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('${p.id}')">
+                <i data-lucide="shopping-bag" style="width: 14px;"></i> Add
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // ── Cart Controller
+    function renderCart() {
+      const list = document.getElementById('cart-items-list');
+      list.innerHTML = '';
+      let subtotal = 0;
+      let totalQty = 0;
+
+      if (cart.length === 0) {
+        list.innerHTML = `<div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><i data-lucide="shopping-bag" style="width: 48px; height: 48px; opacity: 0.3; margin-bottom: 1rem;"></i><p>Your bag is currently empty.</p></div>`;
+      } else {
+        cart.forEach((item, idx) => {
+          subtotal += item.price * item.qty;
+          totalQty += item.qty;
+
+          const el = document.createElement('div');
+          el.style.display = 'flex';
+          el.style.gap = '0.85rem';
+          el.style.paddingBottom = '1rem';
+          el.style.marginBottom = '1rem';
+          el.style.borderBottom = '1px solid var(--border-light)';
+          el.innerHTML = `
+            <img src="${item.img}" style="width: 65px; height: 80px; object-fit: cover; border-radius: var(--radius-sm);" />
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-weight: 700; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin: 0.2rem 0;">Size: ${item.size}</div>
+              <div style="font-weight: 800; font-size: 0.9rem;">₹${(item.price * item.qty).toLocaleString()}</div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.4rem;">
+                <button class="btn btn-secondary btn-sm" style="padding: 2px 8px;" onclick="updateCartQty(${idx}, -1)">-</button>
+                <span style="font-size: 0.85rem; font-weight: 700;">${item.qty}</span>
+                <button class="btn btn-secondary btn-sm" style="padding: 2px 8px;" onclick="updateCartQty(${idx}, 1)">+</button>
+                <button class="btn btn-ghost btn-sm" style="color: var(--error); margin-left: auto; padding: 2px 6px;" onclick="removeCartItem(${idx})"><i data-lucide="trash-2" style="width: 14px;"></i></button>
+              </div>
+            </div>
+          `;
+          list.appendChild(el);
+        });
+      }
+
+      document.getElementById('nav-cart-count').innerText = totalQty;
+      document.getElementById('cart-badge-qty').innerText = `${totalQty} items`;
+      document.getElementById('cart-subtotal').innerText = `₹${subtotal.toLocaleString()}`;
+      document.getElementById('nav-wishlist-count').innerText = wishlist.length;
+      lucide.createIcons();
+    }
+
+    function addToCart(productId) {
+      const p = PRODUCTS.find(x => x.id === productId);
+      if (!p) return;
+      const exist = cart.find(x => x.id === productId);
+      if (exist) exist.qty += 1;
+      else cart.push({ id: p.id, name: p.name, price: p.price, mrp: p.mrp, size: 'M', qty: 1, img: p.img });
+
+      renderCart();
+      showToast(`Added "${p.name}" to cart! 🛍️`);
+      openCart();
+    }
+
+    function updateCartQty(idx, delta) {
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      renderCart();
+    }
+
+    function removeCartItem(idx) {
+      cart.splice(idx, 1);
+      renderCart();
+      showToast('Item removed from cart');
+    }
+
+    function openCart() {
+      document.getElementById('cart-overlay').classList.add('open');
+      document.getElementById('cart-drawer').classList.add('open');
+    }
+    function closeCart() {
+      document.getElementById('cart-overlay').classList.remove('open');
+      document.getElementById('cart-drawer').classList.remove('open');
+    }
+
+    // ── Wishlist Controller
+    function toggleWishlist(e, productId) {
+      if (e) e.stopPropagation();
+      const idx = wishlist.indexOf(productId);
+      if (idx > -1) {
+        wishlist.splice(idx, 1);
+        showToast('Removed from wishlist');
+      } else {
+        wishlist.push(productId);
+        showToast('Added to wishlist ❤️');
+      }
+      renderProducts();
+      renderCart();
+    }
+
+    function openWishlist() {
+      const list = document.getElementById('wishlist-items-list');
+      list.innerHTML = '';
+      if (wishlist.length === 0) {
+        list.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 3rem 0;">No items saved in wishlist.</p>`;
+      } else {
+        wishlist.forEach(id => {
+          const p = PRODUCTS.find(x => x.id === id);
+          if (p) {
+            const el = document.createElement('div');
+            el.style.display = 'flex';
+            el.style.gap = '0.85rem';
+            el.style.paddingBottom = '1rem';
+            el.style.marginBottom = '1rem';
+            el.style.borderBottom = '1px solid var(--border-light)';
+            el.innerHTML = `
+              <img src="${p.img}" style="width: 60px; height: 75px; object-fit: cover; border-radius: var(--radius-sm);" />
+              <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 0.85rem;">${p.name}</div>
+                <div style="font-weight: 800; font-size: 0.9rem; margin-top: 0.2rem;">₹${p.price.toLocaleString()}</div>
+                <button class="btn btn-primary btn-sm" style="margin-top: 0.4rem;" onclick="addToCart('${p.id}'); toggleWishlist(null, '${p.id}'); closeWishlist();">
+                  Move to Cart
+                </button>
+              </div>
+            `;
+            list.appendChild(el);
+          }
+        });
+      }
+      document.getElementById('wishlist-overlay').classList.add('open');
+      document.getElementById('wishlist-drawer').classList.add('open');
+      lucide.createIcons();
+    }
+    function closeWishlist() {
+      document.getElementById('wishlist-overlay').classList.remove('open');
+      document.getElementById('wishlist-drawer').classList.remove('open');
+    }
+
+    // ── Checkout Wizard Controller
+    function openCheckout() {
+      if (!currentUser) {
+        showToast('Please sign in to complete checkout', 'error');
+        openAuthModal('login');
+        return;
+      }
+      closeCart();
+      gotoCheckoutStep(1);
+      document.getElementById('checkout-modal').classList.add('open');
+    }
+    function closeCheckout() {
+      document.getElementById('checkout-modal').classList.remove('open');
+    }
+    function gotoCheckoutStep(step) {
+      document.getElementById('checkout-step-1').style.display = step === 1 ? 'block' : 'none';
+      document.getElementById('checkout-step-2').style.display = step === 2 ? 'block' : 'none';
+      document.getElementById('checkout-step-3').style.display = step === 3 ? 'block' : 'none';
+    }
+
+    function calculatePinDelivery(pin) {
+      const box = document.getElementById('pincode-est-box');
+      if (pin.length === 6) {
+        if (pin.startsWith('400') || pin.startsWith('110') || pin.startsWith('560')) {
+          box.innerHTML = '⚡ Tier: <strong>Metro Express</strong> — Delivery in <strong>2 Days</strong>';
+        } else {
+          box.innerHTML = '🚚 Tier: <strong>Regional Express</strong> — Delivery in <strong>4 Days</strong>';
+        }
+      }
+    }
+
+    function placeOrderFinal() {
+      gotoCheckoutStep(3);
+      cart = [];
+      renderCart();
+      confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+      showToast('Order Placed Successfully! 🎉');
+    }
+
+    // ── Product Detail Modal
+    function openProductModal(id) {
+      const p = PRODUCTS.find(x => x.id === id);
+      if (!p) return;
+      const c = document.getElementById('product-modal-content');
+      c.innerHTML = `
+        <div style="aspect-ratio: 3/4; border-radius: var(--radius-lg); overflow: hidden;">
+          <img src="${p.img}" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+        <div>
+          <span class="badge badge-sale">${p.category.toUpperCase()}</span>
+          <h2 style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0;">${p.name}</h2>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <span style="font-weight: 800; font-size: 1.65rem;">₹${p.price.toLocaleString()}</span>
+            <span style="color: var(--text-faint); text-decoration: line-through;">₹${p.mrp.toLocaleString()}</span>
+          </div>
+          <p style="color: var(--text-secondary); line-height: 1.7; font-size: 0.9rem; margin-bottom: 1.5rem;">${p.desc}</p>
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn btn-primary btn-lg" style="flex: 1; justify-content: center;" onclick="addToCart('${p.id}'); closeProductModal();">
+              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Bag
+            </button>
+            <button class="btn btn-secondary btn-lg" onclick="toggleWishlist(null, '${p.id}'); closeProductModal();">
+              <i data-lucide="heart" style="width: 18px;"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('product-modal').classList.add('open');
+      lucide.createIcons();
+    }
+    function closeProductModal() {
+      document.getElementById('product-modal').classList.remove('open');
+    }
+
+    // ── Live Tracker Update
+    function updateLiveTracker(status) {
+      const steps = ['ORDERED', 'PACKED', 'SHIPPED', 'OUT_FOR_DELIVERY', 'DELIVERED'];
+      const currentIdx = steps.indexOf(status);
+      const progressBar = document.getElementById('tracker-progress-bar');
+      progressBar.style.width = `${(currentIdx / (steps.length - 1)) * 100}%`;
+
+      const stepIds = ['step-ordered', 'step-packed', 'step-shipped', 'step-out', 'step-delivered'];
+      stepIds.forEach((id, idx) => {
+        const el = document.getElementById(id);
+        el.className = 'tracker-step';
+        if (idx < currentIdx) el.classList.add('completed');
+        else if (idx === currentIdx) el.classList.add('active');
+      });
+
+      const eta = document.getElementById('tracker-eta');
+      if (status === 'DELIVERED') eta.innerText = 'Delivered to recipient';
+      else if (status === 'OUT_FOR_DELIVERY') eta.innerText = 'Arriving Today by 4 PM';
+      else eta.innerText = 'Tomorrow by 8 PM';
+
+      showToast(`Tracker updated to: ${status}`);
+    }
+
+    // ── Admin Views & Data Controller
+    function renderAdminData() {
+      const tbody = document.getElementById('admin-recent-orders');
+      tbody.innerHTML = '';
+      adminOrders.forEach(o => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border-light)';
+        tr.innerHTML = `
+          <td style="padding: 0.6rem; font-weight: 700; color: var(--accent);">${o.id}</td>
+          <td style="padding: 0.6rem;">${o.customer}</td>
+          <td style="padding: 0.6rem; font-weight: 700;">${o.total}</td>
+          <td style="padding: 0.6rem;"><span class="badge ${o.status === 'DELIVERED' ? 'badge-stock' : 'badge-metro'}">${o.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const pbody = document.getElementById('admin-products-table');
+      pbody.innerHTML = '';
+      PRODUCTS.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border-light)';
+        tr.innerHTML = `
+          <td style="padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem;">
+            <img src="${p.img}" style="width: 38px; height: 48px; border-radius: 4px; object-fit: cover;" />
+            <strong>${p.name}</strong>
+          </td>
+          <td style="padding: 0.75rem 1rem;"><span class="badge badge-metro">${p.category}</span></td>
+          <td style="padding: 0.75rem 1rem; font-weight: 700;">₹${p.price.toLocaleString()}</td>
+          <td style="padding: 0.75rem 1rem; font-weight: 700; color: ${p.stock <= 5 ? 'var(--error)' : 'inherit'};">${p.stock} units</td>
+          <td style="padding: 0.75rem 1rem; text-align: right;">
+            <button class="btn btn-ghost btn-sm" style="color: var(--error);" onclick="deleteAdminProduct(${idx})"><i data-lucide="trash-2" style="width: 15px;"></i></button>
+          </td>
+        `;
+        pbody.appendChild(tr);
+      });
+
+      const obody = document.getElementById('admin-orders-table');
+      obody.innerHTML = '';
+      adminOrders.forEach((o, idx) => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border-light)';
+        tr.innerHTML = `
+          <td style="padding: 0.75rem 1rem; font-weight: 700; color: var(--accent);">${o.id}</td>
+          <td style="padding: 0.75rem 1rem;">${o.customer}</td>
+          <td style="padding: 0.75rem 1rem; color: var(--text-muted);">${o.destination}</td>
+          <td style="padding: 0.75rem 1rem; font-weight: 700;">${o.total}</td>
+          <td style="padding: 0.75rem 1rem;">
+            <select onchange="changeAdminOrderStatus(${idx}, this.value)" style="height: 32px; font-size: 0.75rem; font-weight: 700;">
+              <option value="ORDERED" ${o.status === 'ORDERED' ? 'selected' : ''}>ORDERED</option>
+              <option value="PACKED" ${o.status === 'PACKED' ? 'selected' : ''}>PACKED</option>
+              <option value="SHIPPED" ${o.status === 'SHIPPED' ? 'selected' : ''}>SHIPPED</option>
+              <option value="OUT_FOR_DELIVERY" ${o.status === 'OUT_FOR_DELIVERY' ? 'selected' : ''}>OUT_FOR_DELIVERY</option>
+              <option value="DELIVERED" ${o.status === 'DELIVERED' ? 'selected' : ''}>DELIVERED</option>
+            </select>
+          </td>
+        `;
+        obody.appendChild(tr);
+      });
+
+      lucide.createIcons();
+    }
+
+    function changeAdminOrderStatus(idx, newStatus) {
+      adminOrders[idx].status = newStatus;
+      if (idx === 0) updateLiveTracker(newStatus);
+      showToast(`Updated ${adminOrders[idx].id} to ${newStatus}`);
+    }
+
+    function deleteAdminProduct(idx) {
+      const name = PRODUCTS[idx].name;
+      PRODUCTS.splice(idx, 1);
+      renderProducts();
+      renderAdminData();
+      showToast(`Removed "${name}" from store`);
+    }
+
+    function openAddProductModal() {
+      const name = prompt("Enter garment name:", "Luxe Satin Bomber Jacket");
+      if (!name) return;
+      const price = parseInt(prompt("Enter price (₹):", "2999")) || 2999;
+      const category = prompt("Enter category (men/women/kids/beauty):", "men") || "men";
+
+      PRODUCTS.unshift({
+        id: 'p' + (PRODUCTS.length + 1),
+        name,
+        category,
+        price,
+        mrp: price * 1.6,
+        stock: 25,
+        rating: 5.0,
+        reviews: 1,
+        img: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600',
+        desc: 'New seasonal arrival tailored with ultra-premium materials.'
+      });
+
+      renderProducts();
+      renderAdminData();
+      showToast(`Added "${name}" to catalog! 🚀`);
+    }
+
+    function exportCSV() {
+      let csv = "Order ID,Customer,Total,Status\n";
+      adminOrders.forEach(o => { csv += `${o.id},${o.customer},${o.total},${o.status}\n`; });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'trend_vogue_sales_report.csv');
+      a.click();
+      showToast('Downloading CSV audit report 📊');
+    }
+
+    // ── View Switching & Route Guards
+    function switchView(view) {
+      if (view === 'admin') {
+        if (!currentUser) {
+          showToast('Admin authentication required', 'error');
+          openAuthModal('login');
+          quickFillAuth('Meet2026@gmail.com', 'Meet@@2026');
+          return;
+        }
+        if (currentUser.role !== 'ADMIN') {
+          showToast('Forbidden: Only ADMIN users can view dashboard', 'error');
+          return;
+        }
+      }
+
+      const isStore = view === 'storefront';
+      document.getElementById('view-storefront').style.display = isStore ? 'block' : 'none';
+      document.getElementById('view-admin').style.display = isStore ? 'none' : 'grid';
+      document.getElementById('store-nav-links').style.display = isStore ? 'flex' : 'none';
+
+      if (!isStore) renderAdminData();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchAdminTab(tab, btn) {
+      document.querySelectorAll('.admin-sidebar .admin-nav-item').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      ['overview', 'products', 'orders', 'reports'].forEach(t => {
+        document.getElementById(`admin-tab-${t}`).style.display = t === tab ? 'block' : 'none';
+      });
+      lucide.createIcons();
+    }
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('#store-nav-links .nav-item').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderProducts();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val;
+      renderProducts();
+    }
+
+    function handleSort(val) {
+      sortMethod = val;
+      renderProducts();
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      const icon = document.getElementById('theme-icon');
+      icon.setAttribute('data-lucide', next === 'dark' ? 'moon' : 'sun');
+      lucide.createIcons();
+    }
+
+    // ── Boot Sequence
+    window.addEventListener('DOMContentLoaded', () => {
+      initIntro();
+      renderAuthNav();
+      renderProducts();
+      renderCart();
+      renderAdminData();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
