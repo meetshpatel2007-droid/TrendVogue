@@ -48,7 +48,7 @@
       --error: #E5534B;
       --error-bg: rgba(229, 83, 75, 0.18);
 
-      --nav-bg: rgba(10, 13, 16, 0.82);
+      --nav-bg: rgba(10, 13, 16, 0.85);
       --nav-blur: blur(24px);
       --radius-sm: 6px;
       --radius-md: 12px;
@@ -92,7 +92,7 @@
       --error: #DC3545;
       --error-bg: rgba(220, 53, 69, 0.1);
 
-      --nav-bg: rgba(255, 255, 255, 0.88);
+      --nav-bg: rgba(255, 255, 255, 0.9);
       --gradient-hero: radial-gradient(ellipse 70% 55% at 50% 0%, #E6EFF8 0%, #F8F9FA 100%);
     }
 
@@ -107,7 +107,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Filmic ambient grain texture overlay */
     body::before {
       content: "";
       position: fixed;
@@ -128,7 +127,7 @@
       padding: 0 1.5rem;
     }
 
-    /* Editorial Photography Grading */
+    /* Editorial Photo Grading */
     .editorial-img {
       filter: contrast(1.04) saturate(1.03) brightness(0.98);
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
@@ -137,7 +136,6 @@
       filter: contrast(1.07) saturate(1.08) brightness(1.02);
     }
 
-    /* Ken Burns Drifting Animation */
     @keyframes kenBurns {
       0%   { transform: scale(1.0); }
       50%  { transform: scale(1.04) translateY(-4px); }
@@ -181,8 +179,6 @@
       box-shadow: 0 8px 24px rgba(33,98,161,0.45);
       transform: translateY(-2px);
     }
-
-    /* Luxury Gold Button with Shine Sweep */
     .btn-gold {
       background: var(--gradient-gold);
       color: #0A0D10;
@@ -196,12 +192,7 @@
       left: -60%;
       width: 50%;
       height: 200%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.45) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0) 100%);
       transform: rotate(30deg);
       transition: all 0.75s ease;
       pointer-events: none;
@@ -211,7 +202,6 @@
       box-shadow: 0 8px 28px rgba(240, 136, 4, 0.5), var(--shadow-gold);
       transform: translateY(-2px);
     }
-
     .btn-secondary {
       background: var(--surface-2);
       color: var(--text-primary);
@@ -466,10 +456,7 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-    .drawer-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
     .drawer {
       position: fixed;
       top: 0; right: 0; bottom: 0;
@@ -514,10 +501,7 @@
       pointer-events: none;
       transition: opacity 0.25s ease;
     }
-    .modal-container.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .modal-container.open { opacity: 1; pointer-events: auto; }
     .modal-content {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -570,7 +554,7 @@
     /* ─── HERO CAROUSEL ─────────────────────────── */
     .hero-section {
       padding-top: 130px;
-      padding-bottom: 100px;
+      padding-bottom: 90px;
       min-height: 85vh;
       display: flex;
       align-items: center;
@@ -660,9 +644,7 @@
       object-fit: cover;
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .product-card:hover .product-img-wrap img {
-      transform: scale(1.06);
-    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
     .product-wishlist-btn {
       position: absolute;
       top: 12px; right: 12px;
@@ -679,10 +661,7 @@
       transition: all 0.2s;
       z-index: 2;
     }
-    .product-wishlist-btn.active {
-      background: var(--error);
-      color: #fff;
-    }
+    .product-wishlist-btn.active { background: var(--error); color: #fff; }
     .product-content {
       padding: 1.25rem;
       display: flex;
@@ -756,6 +735,45 @@
       color: var(--text-primary);
     }
 
+    /* ─── FAQ ACCORDION ──────────────────────────── */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      margin-bottom: 0.85rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.active { border-color: var(--accent); }
+    .faq-header {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      user-select: none;
+    }
+    .faq-body {
+      padding: 0 1.5rem 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      display: none;
+      border-top: 1px solid var(--border-light);
+      padding-top: 1rem;
+    }
+    .faq-item.active .faq-body { display: block; }
+    .faq-icon {
+      transition: transform 0.25s ease;
+      color: var(--text-muted);
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
     /* ─── ADMIN DASHBOARD CMS ─────────────────────── */
     .admin-layout {
       display: grid;
@@ -806,6 +824,18 @@
 <body>
 
   <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 0. TOP PROMO BANNER BAR                                        -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div style="background: linear-gradient(90deg, #1B4F82 0%, #2162A1 50%, #1B4F82 100%); color: #FFFFFF; padding: 0.5rem 1rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-align: center; display: flex; justify-content: center; align-items: center; gap: 0.75rem;">
+    <span>✨ MONSOON COUTURE: FLAT 50% OFF WITH CODE <strong>"VOGUE50"</strong></span>
+    <span style="opacity: 0.6;">·</span>
+    <span>FREE METRO DELIVERY OVER ₹999</span>
+    <button onclick="copyPromoCode('VOGUE50')" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; font-weight: 800;">
+      COPY CODE
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
   <!-- 1. CINEMATIC GSAP INTRO                                        -->
   <!-- ══════════════════════════════════════════════════════════════ -->
   <div id="intro-overlay">
@@ -826,13 +856,11 @@
   <!-- ══════════════════════════════════════════════════════════════ -->
   <nav class="app-navbar">
     <div class="container nav-inner">
-      <!-- Brand Logo -->
       <a href="#" class="nav-logo" onclick="switchView('storefront')">
         <i data-lucide="sparkles" style="color: var(--highlight);"></i>
         <span>TREND<span style="color: var(--amber);">VOGUE</span></span>
       </a>
 
-      <!-- Store Navigation Links -->
       <div class="nav-links" id="store-nav-links">
         <button class="nav-item active" onclick="filterCategory('all', this)">All</button>
         <button class="nav-item" onclick="filterCategory('men', this)">Men</button>
@@ -841,27 +869,22 @@
         <button class="nav-item" onclick="filterCategory('beauty', this)">Beauty</button>
       </div>
 
-      <!-- User Auth & Quick Actions -->
       <div class="nav-actions">
-        <!-- Auth Status Button -->
         <div id="auth-status-container">
           <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">
             <i data-lucide="user" style="width: 15px;"></i> Sign In / Register
           </button>
         </div>
 
-        <!-- Theme Toggle -->
         <button class="nav-badge-btn" onclick="toggleTheme()" title="Toggle Theme">
           <i data-lucide="moon" id="theme-icon" style="width: 18px; height: 18px;"></i>
         </button>
 
-        <!-- Wishlist Badge -->
         <button class="nav-badge-btn" onclick="openWishlist()" title="Wishlist">
           <i data-lucide="heart" style="width: 18px; height: 18px;"></i>
           <span class="badge-count" id="nav-wishlist-count">0</span>
         </button>
 
-        <!-- Cart Badge -->
         <button class="nav-badge-btn" onclick="openCart()" title="Cart">
           <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
           <span class="badge-count accent" id="nav-cart-count">0</span>
@@ -889,13 +912,12 @@
             </span>
           </h1>
           <p class="hero-desc">
-            Explore bespoke tailoring, sustainably woven silk blends, and contemporary silhouettes engineered for effortless everyday luxury.
+            Discover precision tailoring, sustainably woven silk blends, and contemporary silhouettes engineered for modern living.
           </p>
           <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
             <a href="#curated-styles" class="btn btn-gold btn-lg">
               <i data-lucide="shopping-bag" style="width: 18px;"></i> Explore Collection
             </a>
-            <!-- Clean, professional Admin Portal button without exposed credentials -->
             <button onclick="tryAccessAdmin()" class="btn btn-secondary btn-lg" style="gap: 0.5rem;">
               <i data-lucide="shield-check" style="width: 18px;"></i> Admin Portal
             </button>
@@ -916,7 +938,7 @@
     </section>
 
     <!-- Refined Trust Strip with Vertical Dividers -->
-    <section style="background: var(--surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 2.25rem 0;">
+    <section style="background: var(--surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 2rem 0;">
       <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
         <div style="display: flex; align-items: center; gap: 1.15rem; padding: 0.5rem 1rem; border-right: 1px solid var(--border-light);">
           <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--accent-subtle); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -950,20 +972,78 @@
       </div>
     </section>
 
+    <!-- Department Showcase Cards -->
+    <section style="padding: 5rem 0 3rem; position: relative; z-index: 1;">
+      <div class="container">
+        <div style="textAlign: center; max-width: 600px; margin: 0 auto 3rem; text-align: center;">
+          <div style="font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;">
+            Explore Departments
+          </div>
+          <h2 style="font-size: 2.25rem; font-weight: 800; margin: 0.4rem 0;">
+            Shop by <span class="font-serif italic font-normal">Category</span>
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Handcrafted collections tailored for every aesthetic and occasion
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+          <div onclick="filterCategory('women')" class="card card-hover" style="position: relative; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; border-radius: var(--radius-lg);">
+            <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600" class="editorial-img" style="width: 100%; height: 100%; object-fit: cover;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,13,16,0.9) 0%, rgba(10,13,16,0.2) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+              <span class="badge badge-sale" style="margin-bottom: 0.5rem;">120+ STYLES</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff;">Women's Collection</h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Evening Gowns & Sarees</p>
+            </div>
+          </div>
+
+          <div onclick="filterCategory('men')" class="card card-hover" style="position: relative; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; border-radius: var(--radius-lg);">
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600" class="editorial-img" style="width: 100%; height: 100%; object-fit: cover;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,13,16,0.9) 0%, rgba(10,13,16,0.2) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+              <span class="badge badge-sale" style="margin-bottom: 0.5rem;">85+ STYLES</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff;">Men's Tailoring</h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Oxford Shirts & Blazers</p>
+            </div>
+          </div>
+
+          <div onclick="filterCategory('kids')" class="card card-hover" style="position: relative; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; border-radius: var(--radius-lg);">
+            <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=600" class="editorial-img" style="width: 100%; height: 100%; object-fit: cover;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,13,16,0.9) 0%, rgba(10,13,16,0.2) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+              <span class="badge badge-sale" style="margin-bottom: 0.5rem;">40+ STYLES</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff;">Kids Essentials</h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Organic Cotton Wear</p>
+            </div>
+          </div>
+
+          <div onclick="filterCategory('beauty')" class="card card-hover" style="position: relative; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; border-radius: var(--radius-lg);">
+            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600" class="editorial-img" style="width: 100%; height: 100%; object-fit: cover;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,13,16,0.9) 0%, rgba(10,13,16,0.2) 60%, transparent 100%);"></div>
+            <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+              <span class="badge badge-sale" style="margin-bottom: 0.5rem;">30+ FORMULATIONS</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff;">Luxury Beauty</h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Peptides & Elixirs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Curated Styles Section with Editorial Typography -->
-    <section id="curated-styles" class="container" style="padding: 6rem 1.5rem;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;">
+    <section id="curated-styles" class="container" style="padding: 4rem 1.5rem 5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem;">
         <div>
           <div style="font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem;">
             Seasonal Lookbook
           </div>
-          <h2 style="font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em;">
+          <h2 style="font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em;">
             Curated <span class="font-serif italic font-normal text-[1.1em]">Styles</span>
           </h2>
           <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.35rem;">Showing live inventory with real-time stock allocation</p>
         </div>
 
-        <!-- Search & Sort Controls -->
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
           <div style="position: relative; width: 240px;">
             <input type="text" id="search-input" placeholder="Search styles..." oninput="handleSearch(this.value)" style="padding-left: 2.25rem; height: 38px;" />
@@ -978,14 +1058,267 @@
         </div>
       </div>
 
-      <!-- Products Grid -->
-      <div class="products-grid" id="products-container">
-        <!-- Injected via JavaScript -->
+      <div class="products-grid" id="products-container"></div>
+    </section>
+
+    <!-- Flash Sale Banner with Live Countdown Timer -->
+    <section style="padding: 1rem 0 5rem; position: relative; z-index: 1;">
+      <div class="container">
+        <div class="card" style="padding: clamp(2rem, 5vw, 3.5rem); background: radial-gradient(ellipse at 80% 50%, rgba(240,136,4,0.18) 0%, rgba(33,98,161,0.25) 50%, var(--surface) 100%); border: 1px solid rgba(240,136,4,0.4); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; align-items: center; box-shadow: var(--shadow-lg), 0 0 50px rgba(240,136,4,0.15);">
+          <div>
+            <span class="badge badge-sale" style="margin-bottom: 1rem;">⚡ LIMITED TIME FLASH EVENT</span>
+            <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem;">
+              Monsoon Couture Flash Sale <br />
+              <span style="color: var(--highlight);">Up to 60% Off</span>
+            </h2>
+            <p style="color: var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.7, margin-bottom: "1.5rem">
+              Claim an extra 15% discount across all bespoke silk shirts, blazers, and evening gowns with code <strong>VOGUE50</strong>.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-top: 1.5rem;">
+              <button onclick="copyPromoCode('VOGUE50')" class="btn btn-gold btn-lg">
+                <i data-lucide="copy" style="width: 16px;"></i> Copy Coupon: VOGUE50
+              </button>
+              <a href="#curated-styles" class="btn btn-secondary btn-lg">Shop Deals →</a>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <div style="background: rgba(10,13,16,0.85); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; min-width: 90px; text-align: center; box-shadow: var(--shadow-md);">
+              <div style="font-size: 2.25rem; font-weight: 800; font-family: var(--font-display); color: var(--highlight);" id="clock-hours">04</div>
+              <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.2rem;">HOURS</div>
+            </div>
+            <div style="background: rgba(10,13,16,0.85); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; min-width: 90px; text-align: center; box-shadow: var(--shadow-md);">
+              <div style="font-size: 2.25rem; font-weight: 800; font-family: var(--font-display); color: var(--highlight);" id="clock-mins">48</div>
+              <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.2rem;">MINUTES</div>
+            </div>
+            <div style="background: rgba(10,13,16,0.85); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; min-width: 90px; text-align: center; box-shadow: var(--shadow-md);">
+              <div style="font-size: 2.25rem; font-weight: 800; font-family: var(--font-display); color: var(--highlight);" id="clock-secs">32</div>
+              <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 0.2rem;">SECONDS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Story & Artisanal Pillars -->
+    <section style="padding: 4.5rem 0 5rem; background: var(--surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+      <div class="container">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 3.5rem;">
+          <span style="font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;">The Trend Vogue Standard</span>
+          <h2 style="font-size: 2.35rem; font-weight: 800; margin: 0.5rem 0;">
+            Sustainable Luxury Without <span class="font-serif italic font-normal">Compromise</span>
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
+            Every stitch embodies a commitment to heritage textile crafts, non-toxic organic botanical dyes, and equitable artisan livelihoods.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+          <div class="card" style="padding: 2rem; border: 1px solid var(--border-light);">
+            <div style="width: 52px; height: 52px; border-radius: var(--radius-md); background: var(--accent-subtle); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+              <i data-lucide="scissors" style="width: 24px;"></i>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Bespoke Master Tailoring</h3>
+            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7;">
+              Hand-finished buttonholes, reinforced double-needle seams, and natural drape silhouettes that retain shape for decades.
+            </p>
+          </div>
+
+          <div class="card" style="padding: 2rem; border: 1px solid var(--border-light);">
+            <div style="width: 52px; height: 52px; border-radius: var(--radius-md); background: rgba(240,136,4,0.15); color: var(--amber); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+              <i data-lucide="feather" style="width: 24px;"></i>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Mulberry Silk & GOTS Cotton</h3>
+            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7;">
+              Ethically farmed long-staple organic cotton and grade-6A mulberry silk that breathe naturally with your skin.
+            </p>
+          </div>
+
+          <div class="card" style="padding: 2rem; border: 1px solid var(--border-light);">
+            <div style="width: 52px; height: 52px; border-radius: var(--radius-md); background: var(--success-bg); color: var(--success); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+              <i data-lucide="globe-2" style="width: 24px;"></i>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Carbon-Neutral Logistics</h3>
+            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7;">
+              100% plastic-free recycled kraft packaging and smart multi-hub routing for minimized transit emissions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Verified Customer Testimonials -->
+    <section style="padding: 5rem 0; position: relative; z-index: 1;">
+      <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 3rem;">
+          <span style="font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;">Social Proof & Trust</span>
+          <h2 style="font-size: 2.25rem; font-weight: 800; margin: 0.4rem 0;">
+            Words from our <span class="font-serif italic font-normal">Patrons</span>
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Over 25,000+ luxury buyers trust Trend Vogue for their signature wardrobe pieces
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem;">
+          <div class="card card-hover" style="padding: 1.75rem; display: flex; flex-direction: column;">
+            <div style="display: flex; gap: 0.25rem; color: var(--highlight); margin-bottom: 1rem;">
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; flex: 1; margin-bottom: 1.5rem;">
+              "The silk quality is indistinguishable from European couture houses costing four times as much. The BlueDart priority express delivery arrived at my doorstep in under 24 hours."
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.85rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+              <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800;">A</div>
+              <div>
+                <div style="font-weight: 800; font-size: 0.88rem;">Ananya Deshmukh</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">South Mumbai · <em>Verified Buyer</em></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-hover" style="padding: 1.75rem; display: flex; flex-direction: column;">
+            <div style="display: flex; gap: 0.25rem; color: var(--highlight); margin-bottom: 1rem;">
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; flex: 1; margin-bottom: 1.5rem;">
+              "Precision fitting right out of the box. Breathable, structured shoulders, and zero synthetic polyester lining. Truly the new benchmark for modern Indian menswear."
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.85rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+              <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--amber); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 800;">V</div>
+              <div>
+                <div style="font-weight: 800; font-size: 0.88rem;">Vikramaditya Roy</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Indiranagar, Bengaluru · <em>Verified Buyer</em></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-hover" style="padding: 1.75rem; display: flex; flex-direction: column;">
+            <div style="display: flex; gap: 0.25rem; color: var(--highlight); margin-bottom: 1rem;">
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+              <i data-lucide="star" style="width: 16px; fill: var(--highlight);"></i>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; flex: 1; margin-bottom: 1.5rem;">
+              "From the plastic-free luxury packaging to the deterministic tracking tracker, the attention to detail is world-class. Trend Vogue is my first stop for seasonal styling."
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.85rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+              <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--success); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800;">R</div>
+              <div>
+                <div style="font-weight: 800; font-size: 0.88rem;">Dr. Radhika Sen</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Vasant Vihar, New Delhi · <em>Verified Buyer</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive FAQ Accordion -->
+    <section style="padding: 4.5rem 0 5rem; background: var(--surface); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+      <div class="container" style="max-width: 880px;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <span style="font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;">Got Questions?</span>
+          <h2 style="font-size: 2.25rem; font-weight: 800; margin: 0.4rem 0;">
+            Frequently Asked <span className="font-serif italic font-normal">Questions</span>
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Everything you need to know about our products, delivery matrices, and return policies
+          </p>
+        </div>
+
+        <div id="faq-accordion-container">
+          <div class="faq-item active" onclick="toggleFaq(this)">
+            <div class="faq-header">
+              <span>How does the Deterministic Delivery Pipeline calculate ETA?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px;"></i>
+            </div>
+            <div class="faq-body">
+              Our logistics engine queries live Indian postal routing matrices. Metro PIN codes (such as Mumbai, Delhi NCR, and Bengaluru) receive priority 2-day air dispatch via BlueDart Air, while Tier-2 regional hubs automatically route via 4-day express surface transit with milestone GPS scanning.
+            </div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+              <span>What is the 30-Day Easy Return & Refund policy?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px;"></i>
+            </div>
+            <div class="faq-body">
+              We offer a 100% risk-free 30-day return window on all unworn items with original tags attached. Doorstep courier pickup is scheduled within 24 hours with immediate refund processing.
+            </div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+              <span>Are all fabrics certified 100% organic and sustainable?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px;"></i>
+            </div>
+            <div class="faq-body">
+              Yes. Every piece is crafted with GOTS-certified 100% organic cotton, ethically harvested grade-6A mulberry silk, and recycled natural horn buttons. We strictly reject fast-fashion petrochemical synthetics.
+            </div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+              <span>Can I pay using Cash on Delivery (COD) or UPI?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px;"></i>
+            </div>
+            <div class="faq-body">
+              Yes! We accept Instant UPI (Google Pay, PhonePe, Paytm), All Major Credit/Debit Cards, NetBanking, and Cash on Delivery (COD) with zero additional fee.
+            </div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+              <span>How do I determine the perfect fit and size?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px;"></i>
+            </div>
+            <div class="faq-body">
+              Every garment page provides an interactive Size Guide with exact chest, waist, and length measurements in both inches and centimeters, along with model height references.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIP Newsletter Club with Confetti & Discount Unlock -->
+    <section style="padding: 5rem 0; position: relative; z-index: 1;">
+      <div class="container" style="max-width: 780px;">
+        <div class="card" style="padding: clamp(2rem, 5vw, 3.5rem); text-align: center; background: linear-gradient(135deg, rgba(33,98,161,0.2) 0%, rgba(240,136,4,0.15) 100%); border: 1px solid rgba(33,98,161,0.35); box-shadow: var(--shadow-lg);">
+          <div style="width: 56px; height: 56px; borderRadius: 999px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+            <i data-lucide="send" style="width: 24px;"></i>
+          </div>
+          <h2 style="font-size: 2.1rem; font-weight: 800; margin-bottom: 0.5rem;">
+            Join the Trend Vogue VIP Circle
+          </h2>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.75rem; max-width: 520px; margin-left: auto; margin-right: auto;">
+            Subscribe to receive private preview access to our seasonal runways, bespoke lookbooks, and an instant 20% discount on your first order.
+          </p>
+
+          <div id="newsletter-form-box">
+            <form onsubmit="handleDemoNewsletter(event)" style="display: flex; gap: 0.75rem; max-width: 480px; margin: 0 auto; flex-wrap: wrap;">
+              <input type="email" id="nl-email" placeholder="Enter your personal email..." required style="flex: 1; min-width: 220px; height: 46px;" />
+              <button type="submit" class="btn btn-gold btn-lg" style="height: 46px; padding: 0 1.5rem;">
+                Unlock 20% Off →
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Active Orders Tracking Demo Section with Smooth Filling Line -->
-    <section class="container" style="padding-bottom: 6rem;" id="tracking-section">
+    <section class="container" style="padding-bottom: 5rem;" id="tracking-section">
       <div class="card" style="padding: clamp(1.5rem, 4vw, 2.5rem); border: 1px solid rgba(33, 98, 161, 0.4); box-shadow: var(--shadow-lg), 0 0 40px rgba(33, 98, 161, 0.2);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
           <div>
@@ -1007,32 +1340,26 @@
           </div>
         </div>
 
-        <!-- 5-Step Tracker Graphic -->
         <div class="tracker-steps">
           <div class="tracker-line">
             <div class="tracker-line-progress" id="tracker-progress-bar" style="width: 50%;"></div>
           </div>
-
           <div class="tracker-step completed" id="step-ordered">
             <div class="tracker-dot"><i data-lucide="package"></i></div>
             <div class="tracker-label">Ordered</div>
           </div>
-
           <div class="tracker-step completed" id="step-packed">
             <div class="tracker-dot"><i data-lucide="box"></i></div>
             <div class="tracker-label">Packed</div>
           </div>
-
           <div class="tracker-step active" id="step-shipped">
             <div class="tracker-dot"><i data-lucide="truck"></i></div>
             <div class="tracker-label">Shipped</div>
           </div>
-
           <div class="tracker-step" id="step-out">
             <div class="tracker-dot"><i data-lucide="map-pin"></i></div>
             <div class="tracker-label">Out for Delivery</div>
           </div>
-
           <div class="tracker-step" id="step-delivered">
             <div class="tracker-dot"><i data-lucide="check-circle-2"></i></div>
             <div class="tracker-label">Delivered</div>
@@ -1046,13 +1373,67 @@
         </div>
       </div>
     </section>
+
+    <!-- Luxury Footer -->
+    <footer style="background: var(--surface); border-top: 1px solid var(--border); padding: 4rem 0 2rem;">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2.5rem; margin-bottom: 3rem;">
+          <div>
+            <div style="font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; margin-bottom: 1rem;">
+              TREND<span style="color: var(--amber);">VOGUE</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.25rem;">
+              Haute couture tailoring, certified organic cottons, and timeless modern silhouettes for contemporary luxury living.
+            </p>
+            <div style="font-size: 0.75rem; color: var(--text-faint);">Crafted in India · Shipping Pan-India</div>
+          </div>
+
+          <div>
+            <h4 style="font-size: 0.85rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; color: var(--accent);">Departments</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.85rem;">
+              <li><a href="#curated-styles" onclick="filterCategory('women')" style="color: var(--text-secondary); text-decoration: none;">Women's Haute Couture</a></li>
+              <li><a href="#curated-styles" onclick="filterCategory('men')" style="color: var(--text-secondary); text-decoration: none;">Men's Tailoring & Denim</a></li>
+              <li><a href="#curated-styles" onclick="filterCategory('kids')" style="color: var(--text-secondary); text-decoration: none;">Kids Organic Essentials</a></li>
+              <li><a href="#curated-styles" onclick="filterCategory('beauty')" style="color: var(--text-secondary); text-decoration: none;">Luxury Skincare & Elixirs</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="font-size: 0.85rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; color: var(--accent);">Customer Care</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.85rem;">
+              <li><a href="#tracking-section" style="color: var(--text-secondary); text-decoration: none;">Track My Order</a></li>
+              <li><a href="#" onclick="showToast('Doorstep delivery in 2 business days via BlueDart Air');" style="color: var(--text-secondary); text-decoration: none;">Shipping Matrix</a></li>
+              <li><a href="#" onclick="showToast('30-day zero fee returns on all orders');" style="color: var(--text-secondary); text-decoration: none;">30-Day Returns</a></li>
+              <li><a href="#" onclick="openCheckout()" style="color: var(--text-secondary); text-decoration: none;">Express Checkout</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="font-size: 0.85rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; color: var(--accent);">Admin Portal</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.85rem;">
+              <li><a href="#" onclick="tryAccessAdmin()" style="color: var(--text-secondary); text-decoration: none;">Executive CMS Panel</a></li>
+              <li><a href="#" onclick="openAuthModal('login')" style="color: var(--text-secondary); text-decoration: none;">Customer Account Portal</a></li>
+              <li><a href="#" onclick="openAuthModal('register')" style="color: var(--text-secondary); text-decoration: none;">Create Free Account</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-light); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--text-faint);">
+          <div>© 2026 Trend Vogue Luxury Brands Pvt Ltd. All rights reserved.</div>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <span>🔒 256-Bit SSL Encrypted Checkout</span>
+            <span>•</span>
+            <span>⚡ Powered by PostgreSQL & Next.js</span>
+          </div>
+        </div>
+      </div>
+    </footer>
   </main>
 
   <!-- ══════════════════════════════════════════════════════════════ -->
   <!-- 4. ADMIN BACK-OFFICE CMS VIEW                                  -->
   <!-- ══════════════════════════════════════════════════════════════ -->
   <div id="view-admin" class="admin-layout" style="display: none;">
-    <!-- Admin Sidebar -->
     <aside class="admin-sidebar">
       <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.5rem; padding: 0 0.5rem;">
         CMS CONTROL PANEL
@@ -1081,9 +1462,7 @@
       </button>
     </aside>
 
-    <!-- Admin Content Area -->
     <section class="admin-content">
-      <!-- Tab 1: Overview -->
       <div id="admin-tab-overview">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
           <div>
@@ -1095,7 +1474,6 @@
           </button>
         </div>
 
-        <!-- KPI Grid -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
           <div class="card" style="padding: 1.5rem;">
             <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">
@@ -1131,7 +1509,6 @@
           </div>
         </div>
 
-        <!-- Recent Activity Table -->
         <div class="card" style="padding: 1.5rem;">
           <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Recent Customer Orders</h3>
           <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
@@ -1143,14 +1520,11 @@
                 <th style="padding: 0.6rem;">Status</th>
               </tr>
             </thead>
-            <tbody id="admin-recent-orders">
-              <!-- Injected via JS -->
-            </tbody>
+            <tbody id="admin-recent-orders"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- Tab 2: Products Management -->
       <div id="admin-tab-products" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
           <div>
@@ -1173,14 +1547,11 @@
                 <th style="padding: 0.75rem 1rem; text-align: right;">Action</th>
               </tr>
             </thead>
-            <tbody id="admin-products-table">
-              <!-- Injected via JS -->
-            </tbody>
+            <tbody id="admin-products-table"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- Tab 3: Orders Management -->
       <div id="admin-tab-orders" style="display: none;">
         <h1 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem;">Order Fulfillment</h1>
         <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Update shipment status for live sync</p>
@@ -1196,14 +1567,11 @@
                 <th style="padding: 0.75rem 1rem;">Pipeline Status</th>
               </tr>
             </thead>
-            <tbody id="admin-orders-table">
-              <!-- Injected via JS -->
-            </tbody>
+            <tbody id="admin-orders-table"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- Tab 4: Financial Reports -->
       <div id="admin-tab-reports" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
           <div>
@@ -1252,12 +1620,10 @@
         </button>
       </div>
 
-      <!-- Login Form -->
       <div id="auth-form-login">
         <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem;">Welcome Back</h2>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">Sign in to your account</p>
 
-        <!-- Quick 1-Click Fill Chips -->
         <div style="background: var(--accent-subtle); border: 1px solid var(--border); padding: 0.75rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
           <div style="font-size: 0.72rem; font-weight: 700; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase;">
             Quick Login With Seeded Accounts:
@@ -1287,7 +1653,6 @@
         </form>
       </div>
 
-      <!-- Register Form -->
       <div id="auth-form-register" style="display: none;">
         <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem;">Create Account</h2>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">Join Trend Vogue & discover luxury fashion</p>
@@ -1330,11 +1695,7 @@
       </div>
       <button class="btn btn-ghost btn-sm" onclick="closeCart()"><i data-lucide="x"></i></button>
     </div>
-
-    <div class="drawer-body" id="cart-items-list">
-      <!-- Items Injected via JS -->
-    </div>
-
+    <div class="drawer-body" id="cart-items-list"></div>
     <div class="drawer-footer">
       <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
         <span style="color: var(--text-muted);">Subtotal</span>
@@ -1362,9 +1723,7 @@
       </div>
       <button class="btn btn-ghost btn-sm" onclick="closeWishlist()"><i data-lucide="x"></i></button>
     </div>
-    <div class="drawer-body" id="wishlist-items-list">
-      <!-- Items Injected via JS -->
-    </div>
+    <div class="drawer-body" id="wishlist-items-list"></div>
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════ -->
@@ -1463,20 +1822,16 @@
       <button class="btn btn-ghost btn-sm" onclick="closeProductModal()" style="position: absolute; top: 1.25rem; right: 1.25rem;">
         <i data-lucide="x"></i>
       </button>
-      <div id="product-modal-content" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem;">
-        <!-- Injected via JS -->
-      </div>
+      <div id="product-modal-content" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem;"></div>
     </div>
   </div>
 
-  <!-- Toast Container -->
   <div id="toast-container"></div>
 
   <!-- ══════════════════════════════════════════════════════════════ -->
   <!-- JAVASCRIPT APPLICATION CORE STATE & CONTROLLERS                -->
   <!-- ══════════════════════════════════════════════════════════════ -->
   <script>
-    // ── Seeded Database & Auth State
     const SEEDED_ADMIN = { email: 'Meet2026@gmail.com', password: 'Meet@@2026', role: 'ADMIN', name: 'Meet Admin' };
     let registeredUsers = [
       SEEDED_ADMIN,
@@ -1510,7 +1865,6 @@
       { id: 'TV-948199', customer: 'Rohan Gupta', destination: 'Delhi NCR (110001)', total: '₹1,899', status: 'DELIVERED' }
     ];
 
-    // ── Toast Trigger
     function showToast(msg, type = 'success') {
       const c = document.getElementById('toast-container');
       const t = document.createElement('div');
@@ -1521,7 +1875,47 @@
       setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
     }
 
-    // ── Intro Animation GSAP
+    function copyPromoCode(code) {
+      navigator.clipboard.writeText(code);
+      confetti({ particleCount: 80, spread: 60, origin: { y: 0.7 } });
+      showToast(`Coupon "${code}" copied to clipboard! 🎟️`);
+    }
+
+    function handleDemoNewsletter(e) {
+      e.preventDefault();
+      const email = document.getElementById('nl-email').value;
+      if (email) {
+        document.getElementById('newsletter-form-box').innerHTML = `
+          <div style="background: var(--success-bg); color: var(--success); padding: 1.15rem; border-radius: var(--radius-md); font-weight: 700;">
+            🎉 Welcome to the VIP Circle! Use code <strong style="color:#fff; text-decoration: underline;">WELCOME20</strong> for 20% off.
+          </div>
+        `;
+        confetti({ particleCount: 140, spread: 80, origin: { y: 0.6 } });
+        showToast('VIP discount code unlocked!');
+      }
+    }
+
+    function toggleFaq(el) {
+      const isAlreadyActive = el.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('active'));
+      if (!isAlreadyActive) el.classList.add('active');
+    }
+
+    function initCountdown() {
+      let sec = 32, min = 48, hr = 4;
+      setInterval(() => {
+        if (sec > 0) sec--;
+        else {
+          sec = 59;
+          if (min > 0) min--;
+          else { min = 59; if (hr > 0) hr--; }
+        }
+        document.getElementById('clock-hours').innerText = String(hr).padStart(2, '0');
+        document.getElementById('clock-mins').innerText = String(min).padStart(2, '0');
+        document.getElementById('clock-secs').innerText = String(sec).padStart(2, '0');
+      }, 1000);
+    }
+
     function initIntro() {
       gsap.fromTo("#intro-brand-box", 
         { opacity: 0, scale: 0.7, y: 30 },
@@ -1542,7 +1936,6 @@
     }
     setTimeout(closeIntro, 3200);
 
-    // ── Auth & Role Controller
     function openAuthModal(tab = 'login') {
       switchAuthTab(tab);
       document.getElementById('auth-modal').classList.add('open');
@@ -1652,7 +2045,6 @@
       }
     }
 
-    // ── Render Products Catalog
     function renderProducts() {
       const container = document.getElementById('products-container');
       container.innerHTML = '';
@@ -1706,7 +2098,6 @@
       lucide.createIcons();
     }
 
-    // ── Cart Controller
     function renderCart() {
       const list = document.getElementById('cart-items-list');
       list.innerHTML = '';
@@ -1784,7 +2175,6 @@
       document.getElementById('cart-drawer').classList.remove('open');
     }
 
-    // ── Wishlist Controller
     function toggleWishlist(e, productId) {
       if (e) e.stopPropagation();
       const idx = wishlist.indexOf(productId);
@@ -1837,7 +2227,6 @@
       document.getElementById('wishlist-drawer').classList.remove('open');
     }
 
-    // ── Checkout Wizard Controller
     function openCheckout() {
       if (!currentUser) {
         showToast('Please sign in to complete checkout', 'error');
@@ -1876,7 +2265,6 @@
       showToast('Order Placed Successfully! 🎉');
     }
 
-    // ── Product Detail Modal
     function openProductModal(id) {
       const p = PRODUCTS.find(x => x.id === id);
       if (!p) return;
@@ -1910,7 +2298,6 @@
       document.getElementById('product-modal').classList.remove('open');
     }
 
-    // ── Live Tracker Update
     function updateLiveTracker(status) {
       const steps = ['ORDERED', 'PACKED', 'SHIPPED', 'OUT_FOR_DELIVERY', 'DELIVERED'];
       const currentIdx = steps.indexOf(status);
@@ -1933,7 +2320,6 @@
       showToast(`Tracker updated to: ${status}`);
     }
 
-    // ── Admin Views & Data Controller
     function renderAdminData() {
       const tbody = document.getElementById('admin-recent-orders');
       tbody.innerHTML = '';
@@ -2045,7 +2431,6 @@
       showToast('Downloading CSV audit report 📊');
     }
 
-    // ── View Switching & Route Guards
     function switchView(view) {
       if (view === 'admin') {
         if (!currentUser) {
@@ -2084,6 +2469,7 @@
       document.querySelectorAll('#store-nav-links .nav-item').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       renderProducts();
+      document.getElementById('curated-styles')?.scrollIntoView({ behavior: 'smooth' });
     }
 
     function handleSearch(val) {
@@ -2105,9 +2491,9 @@
       lucide.createIcons();
     }
 
-    // ── Boot Sequence
     window.addEventListener('DOMContentLoaded', () => {
       initIntro();
+      initCountdown();
       renderAuthNav();
       renderProducts();
       renderCart();
