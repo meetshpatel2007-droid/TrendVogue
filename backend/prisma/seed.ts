@@ -50,7 +50,20 @@ async function main() {
       phone: "9876543210",
     },
   });
-  console.log(`✅ Admin Account: ${admin.email} (Password: ${adminPassword}) [Role: ADMIN]`);
+  console.log(`✅ Primary Admin: ${admin.email} (Password: ${adminPassword}) [Role: ADMIN]`);
+
+  // Secondary admin
+  const secAdminHash = await bcrypt.hash("Admin@12345", 10);
+  await prisma.user.create({
+    data: {
+      name: "TrendVogue Admin",
+      email: "admin@trendvogue.com",
+      passwordHash: secAdminHash,
+      role: "ADMIN",
+      phone: "9876543211",
+    },
+  });
+  console.log(`✅ Secondary Admin: admin@trendvogue.com (Password: Admin@12345) [Role: ADMIN]`);
 
   // Create demo regular user
   const userHash = await bcrypt.hash("User@12345", 10);
@@ -396,8 +409,9 @@ async function main() {
 
   console.log("\n🎉 Seed complete!");
   console.log("═══════════════════════════════════");
-  console.log("Admin: admin@trendvogue.com / Admin@12345");
-  console.log("User:  user@trendvogue.com / User@12345");
+  console.log("Admin 1: Meet2026@gmail.com / Meet@@2026");
+  console.log("Admin 2: admin@trendvogue.com / Admin@12345");
+  console.log("Customer: user@trendvogue.com / User@12345");
   console.log("═══════════════════════════════════");
 }
 

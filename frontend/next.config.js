@@ -1,5 +1,7 @@
-/** @type {import('next').NextConfig} */
+const path = require("path");
+
 const nextConfig = {
+  outputFileTracingRoot: path.join(__dirname, "../"),
   images: {
     remotePatterns: [
       {
@@ -12,15 +14,10 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    serverActions: {
-      allowedOrigins: ["localhost:3000"],
-    },
-  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@backend": require("path").join(__dirname, "../backend/src"),
+      "@backend": path.join(__dirname, "../backend/src"),
     };
     return config;
   },
